@@ -21,7 +21,7 @@ ENV PKG_CONFIG_PATH /usr/lib/${TC_TRIPLE}/pkgconfig
 
 WORKDIR /azp
 
-RUN apt install --yes \
+RUN apt-get update && apt install --fix-missing --yes \
 binutils-mingw-w64-i686 \
 binutils-mingw-w64-x86-64 \
 g++-mingw-w64 \
