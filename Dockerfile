@@ -40,8 +40,8 @@ mingw-w64-tools \
 mingw-w64-i686-dev \
 mingw-w64-x86-64-dev \
 gcc-7-locales \ 
-wine \
-wine64 \
+wine-development \
+wine64-development \
 && export
 
 CMD ["./start.sh"]
