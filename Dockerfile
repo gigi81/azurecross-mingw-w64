@@ -21,7 +21,7 @@ ENV PKG_CONFIG_PATH /usr/lib/${TC_TRIPLE}/pkgconfig
 
 WORKDIR /azp
 
-RUN apt install --no-install-recommends --yes \
+RUN apt install --yes \
 binutils-mingw-w64-i686 \
 binutils-mingw-w64-x86-64 \
 g++-mingw-w64 \
@@ -39,7 +39,6 @@ mingw-w64-common \
 mingw-w64-tools \
 mingw-w64-i686-dev \
 mingw-w64-x86-64-dev \
-gcc-7-locales \ 
 wine-development \
 wine64-development \
 && export
