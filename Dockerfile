@@ -2,7 +2,7 @@ FROM gigi81/azurecross:base
 MAINTAINER Luigi Grilli "luigi.grilli@gmail.com"
 
 ENV TC_PROCESSOR amd64
-ENV TC_TRIPLE i686-w64-mingw32
+ENV TC_TRIPLE x86_64-w64-mingw32
 ENV TC_ROOT=/usr
 ENV CMAKE_TOOLCHAIN_FILE=/azp/toolchain.cmake
 
