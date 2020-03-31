@@ -41,6 +41,7 @@ mingw-w64-i686-dev \
 mingw-w64-x86-64-dev \
 wine-development \
 wine64-development \
+yasm \
 && export
 
 CMD ["./start.sh"]
