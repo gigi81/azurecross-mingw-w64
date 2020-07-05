@@ -1,9 +1,53 @@
 FROM gigi81/azurecross:base
 MAINTAINER Luigi Grilli "luigi.grilli@gmail.com"
 
+RUN apt-get update && apt install --fix-missing --yes \
+autoconf \
+automake \
+autopoint \
+bash \
+bison \
+bzip2 \
+flex \
+g++ \
+g++-multilib \
+gettext \
+git \
+gperf \
+intltool \
+libc6-dev-i386 \
+libgdk-pixbuf2.0-dev \
+libltdl-dev \
+libssl-dev \
+libtool-bin \
+libxml-parser-perl \
+lzip \
+make \
+openssl \
+p7zip-full \
+patch \
+perl \
+pkg-config \
+python \
+ruby \
+sed \
+unzip \
+wget \
+xz-utils \
+wine-development \
+wine64-development \
+yasm
+
+WORKDIR /
+RUN git clone https://github.com/mxe/mxe && \
+cd mxe && \
+make MXE_TARGETS="x86_64-w64-mingw32.shared x86_64-w64-mingw32.static"
+
+WORKDIR /azp
+
 ENV TC_PROCESSOR amd64
-ENV TC_TRIPLE x86_64-w64-mingw32
-ENV TC_ROOT=/usr
+ENV TC_TRIPLE x86_64-w64-mingw32.shared
+ENV TC_ROOT=/mxe/usr
 ENV CMAKE_TOOLCHAIN_FILE=/azp/toolchain.cmake
 
 ENV AS=${TC_ROOT}/bin/${TC_TRIPLE}-as \
@@ -17,31 +61,6 @@ ENV AS=${TC_ROOT}/bin/${TC_TRIPLE}-as \
 ENV QEMU_LD_PREFIX "${TC_ROOT}/${TC_TRIPLE}"
 ENV QEMU_SET_ENV "LD_LIBRARY_PATH=${TC_ROOT}/lib:${QEMU_LD_PREFIX}"
 
-ENV PKG_CONFIG_PATH /usr/lib/${TC_TRIPLE}/pkgconfig
-
-WORKDIR /azp
-
-RUN apt-get update && apt install --fix-missing --yes \
-binutils-mingw-w64-i686 \
-binutils-mingw-w64-x86-64 \
-g++-mingw-w64 \
-g++-mingw-w64-i686 \
-g++-mingw-w64-x86-64 \
-gcc-mingw-w64 \
-gcc-mingw-w64-base \
-gcc-mingw-w64-i686 \
-gcc-mingw-w64-x86-64 \
-gfortran-mingw-w64 \
-gfortran-mingw-w64-i686 \
-gfortran-mingw-w64-x86-64 \
-mingw-w64 \
-mingw-w64-common \
-mingw-w64-tools \
-mingw-w64-i686-dev \
-mingw-w64-x86-64-dev \
-wine-development \
-wine64-development \
-yasm \
-&& export
+ENV PKG_CONFIG_PATH /mxe/usr/bin/x86_64-w64-mingw32.shared-pkg-config
 
 CMD ["./start.sh"]
