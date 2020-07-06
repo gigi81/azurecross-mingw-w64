@@ -5,28 +5,33 @@ resources:
 - repo: self
   clean: true
 
-steps:
-- checkout: self
-  clean: true
-
-- task: Docker@2
-  displayName: login on docker hub
-  inputs:
-    command: login
-    containerRegistry: docker-hub-gigi81
-
-- task: Docker@2
-  displayName: image build
+jobs:
+- job: Default
   timeoutInMinutes: 180
-  inputs:
-    command: build
-    repository: gigi81/azurecross
-    dockerfile: Dockerfile
-    tags: mingw-w64
+  pool:
+    vmImage: 'ubuntu-16.04'
 
-- task: Docker@2
-  displayName: Publish Docker Images to Docker Hub
-  inputs:
-    command: push
-    repository: gigi81/azurecross
-    tags: mingw-w64
+  steps:
+  - checkout: self
+    clean: true
+  
+  - task: Docker@2
+    displayName: login on docker hub
+    inputs:
+      command: login
+      containerRegistry: docker-hub-gigi81
+  
+  - task: Docker@2
+    displayName: image build
+    inputs:
+      command: build
+      repository: gigi81/azurecross
+      dockerfile: Dockerfile
+      tags: x86_64-w64-mingw32
+  
+  - task: Docker@2
+    displayName: Publish Docker Images to Docker Hub
+    inputs:
+      command: push
+      repository: gigi81/azurecross
+      tags: x86_64-w64-mingw32
