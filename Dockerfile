@@ -41,7 +41,7 @@ yasm
 WORKDIR /
 RUN git clone https://github.com/mxe/mxe && \
 cd mxe && \
-make MXE_TARGETS="x86_64-w64-mingw32.shared x86_64-w64-mingw32.static"
+make cc --jobs=4 JOBS=2 MXE_TARGETS="x86_64-w64-mingw32.shared x86_64-w64-mingw32.static"
 
 WORKDIR /azp
 
