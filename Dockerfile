@@ -41,7 +41,13 @@ yasm
 WORKDIR /
 RUN git clone https://github.com/mxe/mxe && \
 cd mxe && \
-make cc --jobs=4 JOBS=2 MXE_TARGETS="x86_64-w64-mingw32.shared x86_64-w64-mingw32.static"
+make cc bzip2 gnutls lame libass libbluray libbs2b libcaca \
+libvpx opencore-amr opus sdl2 speex theora vidstab \
+vo-amrwbenc vorbis x264 xvidcore yasm zlib \
+libiconv libass freetype lame opencore-amr theora twolame libvpx wavpack libwebp \ 
+x264 x265 libxml2 lzma vorbis vo-amrwbenc vo-aacenc speex xvidcore libao ffmpeg \
+openssl openthreads curl boost \
+--jobs=2 JOBS=2 MXE_TARGETS="x86_64-w64-mingw32.shared x86_64-w64-mingw32.static"
 
 WORKDIR /azp
 
